@@ -6,7 +6,7 @@ services:
 
 before_install:
   #a series of steps that need to occur before our test starts
-  - docker build -t thejuan23/docker-react -f Dockerfile.dev .
+  - docker build -t j-cbblas/docker-react -f Dockerfile.dev .
   #we are tagging the image that gets created just to know its name
   #don't really needed b/c its only used in Travis
 
@@ -14,7 +14,7 @@ script:
   #a series of commands when our test needs to be executed
   #travis watches all these commands
   #anything other than 0 means our code is broken
-  - docker run thejuan23/docker-react npm run test -- --coverage
+  - docker run j-cbblas/docker-react npm run test -- --coverage
   #this runs the image createda bove
   #this uses the tag i added to the image created above
   #this overwrites the default command and uses npm run test
