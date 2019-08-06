@@ -1,3 +1,4 @@
+
 sudo: required
 #anything we do we need sudo permissions
 services:
@@ -14,7 +15,7 @@ script:
   #a series of commands when our test needs to be executed
   #travis watches all these commands
   #anything other than 0 means our code is broken
-  - docker run j-cbblas/docker-react npm run test -- --coverage
+  - docker run -e CI=true j-cbblas/docker-react npm run test
   #this runs the image createda bove
   #this uses the tag i added to the image created above
   #this overwrites the default command and uses npm run test
