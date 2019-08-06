@@ -1,0 +1,13 @@
+FROM node:alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+#do this copy before the below copy because it would take
+#longer if we copied it all at once like below
+RUN npm install
+
+COPY . .
+# this copies all the directories locally into the workdir app directory in the container as indicated above
+
+CMD ["npm", "run", "start"]
