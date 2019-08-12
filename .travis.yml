@@ -19,6 +19,29 @@ script:
   #this runs the image createda bove
   #this uses the tag i added to the image created above
   #this overwrites the default command and uses npm run test
-  #-- --coverage makes the test finish and close
-  #travis waits for the status code 0 to say the test
-  #was succesful and completed
+  #uses environment variable CI=true to end the test so Travis
+  #can report back as complete
+deploy:
+  #how to deploy from travis to AWS
+  provider: elasticbeanstalk
+  #travis comes pre configured to work with a lot of providers like aws
+  region: "us-west-2"
+  app: "Docker"
+  env: "Docker-env"
+  #name of app
+  #name of env
+  #both of these are in aws beanstalk to retrieve
+  bucket_name: "elasticbeanstalk-us-west-2-960370086069"
+  #travis zips up your code into a file and saves them in an S3 bucket
+  bucket_path: "Docker"
+  #name of project
+  #the name of the file in the S3 bucket
+  #by default it is the app name
+  on:
+    branch: master
+    #anytime only when we push code to branch master we deploy the app
+  access_key_id: $AWS_ACCESS_KEY
+  #our file will get the access key from the environment variable we
+  #created in Travis CI, so the whole world can't view it on github
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
